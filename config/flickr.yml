@@ -1,0 +1,14 @@
+base: &base
+  api_key: "b039bfb26178e80a9a4c8b1bb4bf4c88"
+  shared_secret: "e65c271a91c663a7"
+      
+      
+development:
+  <<: *base
+
+test:
+  <<: *base
+
+production:
+  <<: *base
+
