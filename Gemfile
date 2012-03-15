@@ -7,7 +7,7 @@ gem 'haml'
 
 gem 'flickraw'
 gem 'facebooker2', :git => "https://github.com/mmangino/facebooker2.git"
-gem 'mysql2'
+# gem 'mysql2'
 gem 'unicorn'
 gem 'thin'
 
