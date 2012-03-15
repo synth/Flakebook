@@ -11,9 +11,10 @@ gem 'mysql2'
 gem 'unicorn'
 gem 'thin'
 
-# group :development, :test do
+gem 'sass-rails',   '~> 3.1.5'
+
+group :development, :test do
   gem 'haml-rails'
-  gem 'sass-rails',   '~> 3.1.5'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'ruby-debug19', :require => 'ruby-debug'
@@ -28,7 +29,7 @@ gem 'thin'
   gem "capybara-webkit", "~> 0.10.0"#make sure you install the Qt App framework for this...  
   gem 'awesome_print' 
 
-# end
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
