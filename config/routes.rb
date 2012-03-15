@@ -1,4 +1,8 @@
 Flakebook::Application.routes.draw do
+  match "login" => "login#index", :as => "login"
+  match "index" => "index#index", :as => "index"
+  match "import_photos" => "index#import_photos", :as => "import_photos", :only => :post
+  match "confirm_import" => "index#confirm_import", :as => "confirm_import", :only => :post
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +52,7 @@ Flakebook::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'index#index'
 
   # See how all your routes lay out with "rake routes"
 

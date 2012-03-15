@@ -7,8 +7,18 @@ class FlickrSync
     sets = flickr.photosets.getList(:user_id => @user.id)
   end
   
+  def get_set(set_id)
+    flickr.photosets.getInfo(:photoset_id => set_id)
+  end
+  
   def get_photos_for_set(set)
     photos = flickr.photosets.getPhotos(:photoset_id => set.id, :extras => "url_o")
     photos = photos.photo
+  end
+  
+  def get_photo(id, size = "Thumbnail")
+    photo_sizes = flickr.photos.getSizes(:photo_id => id)
+    photo = photo_sizes.detect{|p| p.label == size.camelcase}
+    return photo
   end
 end
