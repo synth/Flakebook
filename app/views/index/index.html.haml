@@ -1,0 +1,34 @@
+- if flash[:notice]
+  .notice
+    = flash[:notice]
+    
+- if @show_flickr_albums
+  %h2 #{params[:flickr_user]} Flickr Photo Sets
+  = form_tag import_photos_url do
+    #flickr
+      .album_set
+        /- @flickr_sets.each do |id, album|
+        - @flickr_sets.each do |set|
+          = render :partial => "flickr_photoset", :locals => {:set => set}
+    = hidden_field_tag "flickr_user", params[:flickr_user]
+    = submit_tag "Import the selected sets from flickr to facebook"
+
+
+- else
+  = form_tag "", :method => :get do 
+    = label_tag "Please enter the flickr user you want to import the photo sets from"
+    = text_field_tag "flickr_user", "<flickr user name>", :onclick => "this.value = ''"
+
+
+
+
+- if @show_fb_albums
+  - @facebook_albums = current_facebook_user.albums
+  %h2 Your Facebook Albums
+  #facebook
+    .album_set
+      /- @facebook_albums.each do |id, album|
+      - @facebook_albums.each do |album|
+        = render :partial => "facebook_album", :locals => {:album => album}
+
+

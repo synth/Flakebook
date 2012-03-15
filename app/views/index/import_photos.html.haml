@@ -1,0 +1,17 @@
+%h2 You've decided to import the following photosets:
+= form_tag confirm_import_url do
+  #photoset_imports
+    - @sets.each do |s|
+      .set
+        - photos = @flickr_client.get_photos_for_set(s)
+        - cover_photo = get_flickr_cover_photo_for_set(s)
+        .title
+          = s.title+" (#{photos.length})"
+        .cover
+          %img{:src => cover_photo.source}
+        = hidden_field_tag "photoset_ids[]", s.id
+  %div
+    %a{:href => index_url(:flickr_user => params[:flickr_user])} Go Back
+    = hidden_field_tag "flickr_user", params[:flickr_user]
+    = submit_tag "Do it! (no turning back)"
+      

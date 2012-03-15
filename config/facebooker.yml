@@ -1,0 +1,21 @@
+base: &base
+  app_id: "239552269473501"
+  secret: "c06ba10a9ebd1b99f984cc7cacfd1062"
+  api_key: "239552269473501"
+      
+      
+development:
+  <<: *base
+
+test:
+  <<: *base
+  app_id: ""
+  secret: ""
+  api_key: ""
+
+production:
+  <<: *base
+  app_id: ""
+  secret: ""
+  api_key: ""
+
