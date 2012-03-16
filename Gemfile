@@ -7,8 +7,6 @@ gem 'haml'
 
 gem 'flickraw'
 gem 'facebooker2', :git => "https://github.com/mmangino/facebooker2.git"
-gem 'mysql2'
-# gem 'sqlite3'
 gem 'unicorn'
 gem 'thin'
 
@@ -29,7 +27,7 @@ group :development, :test do
   gem 'capybara'
   gem "capybara-webkit", "~> 0.10.0"#make sure you install the Qt App framework for this...  
   gem 'awesome_print' 
-
+  gem 'mysql2'
 end
 
 # Gems used only for assets and not required
@@ -44,4 +42,8 @@ gem 'jquery-rails'
 group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
+end
+
+group :production do
+  gem 'pg'
 end
