@@ -6,7 +6,8 @@ gem 'sass'
 gem 'haml'
 
 gem 'flickraw'
-gem 'facebooker2', :git => "https://github.com/mmangino/facebooker2.git"
+# gem 'facebooker2', :git => "https://github.com/mmangino/facebooker2.git"
+gem 'koala'
 gem 'unicorn'
 gem 'thin'
 
