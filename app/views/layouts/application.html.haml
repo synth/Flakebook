@@ -3,10 +3,10 @@
   %head
     %title
       Flakebook
-  = stylesheet_link_tag    "reset", "application" 
-  = javascript_include_tag "application" 
-  = csrf_meta_tags 
-
+    = stylesheet_link_tag    "application" 
+    = javascript_include_tag "application" 
+    = csrf_meta_tags 
+    = yield :head
   %body
     #header
       = render :partial => "shared/login"

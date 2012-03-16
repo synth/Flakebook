@@ -1,0 +1,15 @@
+base: &base
+  app_id: "239552269473501"
+  secret_key: "c06ba10a9ebd1b99f984cc7cacfd1062"
+  callback_url: ""
+      
+      
+development:
+  <<: *base
+
+test:
+  <<: *base
+
+production:
+  <<: *base
+

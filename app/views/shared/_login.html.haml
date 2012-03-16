@@ -1,4 +1,23 @@
-= fb_connect_async_js 
+= javascript_include_tag "http://connect.facebook.net/en_US/all.js"
+- debugger    
+#fb-root
+  :javascript
+     FB.init({
+     appId  : '<%= Facebook::APP_ID %>',
+     status : true, // check login status
+     cookie : true, // enable cookies to allow the server to access the session
+     xfbml  : true  // parse XFBML
+     });
+
+     FB.login(function(response) {
+     if (response.session) {
+     location.href = '/home'
+     } else {
+     // user cancelled login
+     }
+    });
+
+  
 - if current_facebook_user 
   = "Welcome #{current_facebook_user.first_name} #{current_facebook_user.last_name}!" 
   = fb_logout_link("Logout", request.url) 
