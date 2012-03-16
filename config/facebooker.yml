@@ -15,5 +15,7 @@ test:
 
 production:
   <<: *base
-
+  app_id: "227327954032436"
+  secret: "a2cf70a3aba880c341b66a5231e8e8be"
+  api_key: "227327954032436"
 
