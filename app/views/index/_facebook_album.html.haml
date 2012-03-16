@@ -4,4 +4,4 @@
   .cover            
     /%img{:src => "#{album[:cover_photo].picture}"}
     - cover_photo = get_facebook_cover_photo_for_album(album)
-    %img{:src => "#{cover_photo.picture}"}
+    %img{:src => "#{(cover_photo ? cover_photo.picture: "")}"}

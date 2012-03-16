@@ -12,6 +12,7 @@
           = render :partial => "flickr_photoset", :locals => {:set => set}
     = hidden_field_tag "flickr_user", params[:flickr_user]
     = submit_tag "Import the selected sets from flickr to facebook"
+    %span Don't worry you'll have another screen to confirm things and select additional options
 
 
 - else

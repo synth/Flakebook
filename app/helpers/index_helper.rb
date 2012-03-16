@@ -4,6 +4,6 @@ module IndexHelper
   end
   
   def get_facebook_cover_photo_for_album(album)
-    cover_photo = Mogli::Photo.find(album.cover_photo, current_facebook_client)
+    cover_photo = Mogli::Photo.find(album.cover_photo, current_facebook_client) if album.cover_photo
   end
 end

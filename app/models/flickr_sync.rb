@@ -12,7 +12,7 @@ class FlickrSync
   end
   
   def get_photos_for_set(set)
-    photos = flickr.photosets.getPhotos(:photoset_id => set.id, :extras => "url_o")
+    photos = flickr.photosets.getPhotos(:photoset_id => set.id, :extras => "description, url_o")
     photos = photos.photo
   end
   

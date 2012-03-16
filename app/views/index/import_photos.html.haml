@@ -8,7 +8,7 @@
         .title
           = s.title+" (#{photos.length})"
         .cover
-          %img{:src => cover_photo.source}
+          %img{:src => (cover_photo ? cover_photo.source: "") }
         = hidden_field_tag "photoset_ids[]", s.id
   %div
     %a{:href => index_url(:flickr_user => params[:flickr_user])} Go Back
