@@ -12,10 +12,10 @@ gem 'thin'
 
 gem 'sass-rails',   '~> 3.1.5'
 gem 'coffee-rails', '~> 3.1.1'
+gem 'uglifier', '>= 1.0.3'
 
 group :development, :test do
   gem 'haml-rails'
-  gem 'uglifier', '>= 1.0.3'
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'factory_girl'
   gem 'factory_girl_rails'
