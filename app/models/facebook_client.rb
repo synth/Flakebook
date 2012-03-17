@@ -20,7 +20,7 @@ class FacebookClient
 
   def album_exists?(title)
     album_id = nil
-    fb_albums = client.albums
+    fb_albums = user.albums
     album = fb_albums.detect{|a| a.name == title}
     album_id = album.id if album
     return album_id
@@ -34,6 +34,10 @@ class FacebookClient
   end
   
   def post_photo(album_id, file)
-    r2 = client.post("/#{album_id}/photos", nil, {:source => f})
+    r2 = client.post("/#{album_id}/photos", nil, {:source => file})
+  end
+  
+  def method_missing(m, *args, &block)  
+    self.client.send(m, *args)
   end
 end

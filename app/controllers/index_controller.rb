@@ -49,7 +49,8 @@ class IndexController < ApplicationController
     photoset_id_string = params[:photoset_ids].join(",")
     flickr_username = @client_manager.flickr_client.username
     access_token = @client_manager.facebook_client.access_token
-    Resque.enqueue(FacebookImport, flickr_username, photoset_id_string)
+    FacebookImport.delay.perform(access_token, flickr_username, photoset_id_string)
+    
     if true#placeholder
       flash[:notice] = "Albums successfully imported"
       redirect_to index_url
