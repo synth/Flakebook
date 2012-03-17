@@ -3,5 +3,5 @@
     = album.name
   .cover            
     /%img{:src => "#{album[:cover_photo].picture}"}
-    - cover_photo = get_facebook_cover_photo_for_album(album)
+    - cover_photo = @client_manager.get_facebook_album_cover_photo(album)
     %img{:src => "#{(cover_photo ? cover_photo.picture: "")}"}

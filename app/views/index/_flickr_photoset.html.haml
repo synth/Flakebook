@@ -4,7 +4,7 @@
     = set.title
   .cover
     /%img{:src => "#{album[:cover_photo].source}"}
-    - cover_photo = get_flickr_cover_photo_for_set(set)
+    - cover_photo = @client_manager.get_flickr_photoset_cover_photo(set)
     %img{:src => cover_photo.source}
   .selector
     /= check_box_tag "photoset_ids[]", album[:id]

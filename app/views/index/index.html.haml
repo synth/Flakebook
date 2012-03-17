@@ -12,19 +12,25 @@
           = render :partial => "flickr_photoset", :locals => {:set => set}
     = hidden_field_tag "flickr_user", params[:flickr_user]
     = submit_tag "Import the selected sets from flickr to facebook"
-    %span Don't worry you'll have another screen to confirm things and select additional options
+    %ul
+      %li
+        Don't worry you'll have another screen to confirm things and select additional options
+      %li
+        Also, this will check if an album with the same name exists, and if it does it will drop photos into that album
+      %li
+        However, currently, it does not check for duplicate photos
 
 
 - else
   = form_tag "", :method => :get do 
     = label_tag "Please enter the flickr user you want to import the photo sets from"
     = text_field_tag "flickr_user", "<flickr user name>", :onclick => "this.value = ''"
-
+    = submit_tag "Go"
 
 
 
 - if @show_fb_albums
-  - @facebook_albums = current_facebook_user.albums
+  - @facebook_albums = @client_manager.facebook_albums
   %h2 Your Facebook Albums
   #facebook
     .album_set

@@ -1,6 +1,10 @@
-class FlickrSync
+class FlickrClient
   def initialize(opts={})
-    @user = flickr.people.findByUsername(:username => opts[:username])
+    @user = flickr.people.findByUsername(:username => opts[:username]) if opts[:username]
+  end
+  
+  def has_user?
+    !@user.nil?
   end
   
   def get_sets
