@@ -5,6 +5,11 @@ class FacebookClient
     @user = Mogli::User.find("me", @client)
   end
   
+  def self.new_from_access_token(token)
+    c = Mogli::Client.new(token)
+    return self.new(c)
+  end
+  
   def albums
     user.albums
   end
@@ -22,6 +27,7 @@ class FacebookClient
   end  
   
   def create_album(title, description)
+    Rails.logger.debug "creating album: #{title} - #{description}"
     r = client.post("me/albums", nil, :name => title, :description => description)
     album_id = r["id"]
     return album_id

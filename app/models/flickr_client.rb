@@ -1,6 +1,8 @@
 class FlickrClient
+  attr_accessor :user, :username
   def initialize(opts={})
-    @user = flickr.people.findByUsername(:username => opts[:username]) if opts[:username]
+    @username = opts[:username]
+    @user = flickr.people.findByUsername(:username => @username) if @username
   end
   
   def has_user?

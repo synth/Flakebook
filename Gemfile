@@ -9,6 +9,9 @@ gem 'flickraw'
 gem 'facebooker2', :git => "https://github.com/mmangino/facebooker2.git"
 gem 'unicorn'
 gem 'thin'
+gem 'foreman'
+# gem 'resque'
+gem 'delayed_job'
 
 gem 'sass-rails',   '~> 3.1.5'
 gem 'coffee-rails', '~> 3.1.1'

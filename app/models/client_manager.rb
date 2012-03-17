@@ -2,10 +2,17 @@ class ClientManager
   attr_accessor :facebook_client, :flickr_client
 
   def initialize(_facebook_client, _flickr_username = nil)
-    @facebook_client = FacebookClient.new(_facebook_client)
+    #we can pass in an app level facebook client or a lower level library client 
+    #if the lower level client is passed in...pass it on to the high level client which knows what to do with it
+    @facebook_client = _facebook_client.is_a?(FacebookClient) ? _facebook_client : FacebookClient.new(_facebook_client)
     @flickr_client = FlickrClient.new(:username => _flickr_username)
   end
 
+  def self.new_from_access_token(access_token, flickr_username)
+    fc = FacebookClient.new_from_access_token(access_token)
+    self.new(fc, flickr_username)
+  end
+  
   def facebook_albums
     facebook_client.albums
   end
@@ -29,6 +36,7 @@ class ClientManager
   #This method is the meat/workhorse, whatever
   #it actually does the posting to facebook
   def transfer_flickr_set_to_facebook_album(set)
+    Rails.logger.info "Transferring photos to facebook from album: #{set.title}"
 
     #determine if album exists with the same name
     unless album_id = facebook_client.album_exists?(set.title)
@@ -41,6 +49,7 @@ class ClientManager
     
     #loop through all the photos
     photos.each do |photo|
+      Rails.logger.debug "Posting photo to facebook with title: #{photo.title}"
 
       #get photo as temp file from url
       f = self.get_photo_as_file_from_url(photo.url_o)

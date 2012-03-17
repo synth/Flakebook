@@ -44,31 +44,42 @@ class IndexController < ApplicationController
 
     @sets = @client_manager.get_flickr_sets_from_ids(photoset_ids)
   end
-  
-  def confirm_import
-    success = true
-    
-    @sets = @client_manager.get_flickr_sets_from_ids(params[:photoset_ids])
-    
-    @sets.each do |set|
-      @client_manager.transfer_flickr_set_to_facebook_album(set)
-    end
-    
-    
-    ############
-    #album_id = "3469598629711"
-    
-    # u = UrlUpload.new("http://p373.net/wp-content/uploads/upfw/p373-d.png")
-    # f = u.file
-    # r2 = current_facebook_client.post("/#{album_id}/photos", nil, {:source => f})
 
-    
-    
-    if true#success
+  def confirm_import
+    photoset_id_string = params[:photoset_ids].join(",")
+    flickr_username = @client_manager.flickr_client.username
+    access_token = @client_manager.facebook_client.access_token
+    Resque.enqueue(FacebookImport, flickr_username, photoset_id_string)
+    if true#placeholder
       flash[:notice] = "Albums successfully imported"
       redirect_to index_url
     end
   end
+  # 
+  # def confirm_import
+  #   success = true
+  #   
+  #   @sets = @client_manager.get_flickr_sets_from_ids(params[:photoset_ids])
+  #   
+  #   @sets.each do |set|
+  #     @client_manager.transfer_flickr_set_to_facebook_album(set)
+  #   end
+  #   
+  #   
+  #   ############
+  #   #album_id = "3469598629711"
+  #   
+  #   # u = UrlUpload.new("http://p373.net/wp-content/uploads/upfw/p373-d.png")
+  #   # f = u.file
+  #   # r2 = current_facebook_client.post("/#{album_id}/photos", nil, {:source => f})
+  # 
+  #   
+  #   
+  #   if true#success
+  #     flash[:notice] = "Albums successfully imported"
+  #     redirect_to index_url
+  #   end
+  # end
   
   protected
   def init_flakebook
