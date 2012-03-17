@@ -22,6 +22,10 @@ class ClientManager
     flickr_client.get_sets
   end
   
+  def get_photos_from_photoset(set)
+    flickr_client.get_photos_for_set(set)
+  end
+  
   #This method is the meat/workhorse, whatever
   #it actually does the posting to facebook
   def transfer_flickr_set_to_facebook_album(set)

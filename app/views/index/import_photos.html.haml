@@ -3,7 +3,7 @@
   #photoset_imports
     - @sets.each do |s|
       .set
-        - photos = @client_manager.get_photos_for_set(s)
+        - photos = @client_manager.get_photos_from_photoset(s)
         - cover_photo = @client_manager.get_flickr_photoset_cover_photo(s)
         .title
           = s.title+" (#{photos.length})"
