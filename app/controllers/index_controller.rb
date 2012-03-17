@@ -52,7 +52,7 @@ class IndexController < ApplicationController
     FacebookImport.delay.perform(access_token, flickr_username, photoset_id_string)
     
     if true#placeholder
-      flash[:notice] = "Albums successfully imported"
+      flash[:notice] = "Albums have been scheduled for import.  This may take some time.  Please go to your facebook albums page and wait for the magic :)"
       redirect_to index_url
     end
   end
