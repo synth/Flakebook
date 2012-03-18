@@ -29,7 +29,7 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails', "~> 2.4"  
   gem 'capybara'
-  gem "capybara-webkit", "~> 0.10.0"#make sure you install the Qt App framework for this...  
+#  gem "capybara-webkit", "~> 0.10.0"#make sure you install the Qt App framework for this...  
   gem 'awesome_print' 
   gem 'mysql2'
 end
@@ -42,6 +42,8 @@ end
 # end
 
 gem 'jquery-rails'
+gem 'execjs'
+gem 'therubyracer'
 
 group :test do
   # Pretty printed test output
@@ -49,5 +51,5 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
+#  gem 'pg'
 end
