@@ -55,7 +55,7 @@ class ClientManager
       f = self.get_photo_as_file_from_url(photo.url_o)
       
       #post photo
-      facebook_client.post_photo(album_id, f)
+      facebook_client.post_photo(album_id, f) unless facebook_client.has_same_photo?(album_id, f)
     end
   end
   
