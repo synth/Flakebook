@@ -39,6 +39,7 @@ class FacebookClient
   
   #checks the album to see if there is a file with the same 
   def has_same_photo?(album_id, f)
+    Rails.logger.info "FacebookClient#has_same_photo - reference file exists?: #{File.exists?(f.path)}"
 
     album = Mogli::Album.find(album_id, client)
     fb_photos = album.photos
