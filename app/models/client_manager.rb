@@ -53,7 +53,8 @@ class ClientManager
     photos.each do |photo|
       Rails.logger.debug "Posting photo to facebook with title: #{photo.title}"
       Delayed::Worker.logger.debug "Posting photo to facebook with title: #{photo.title}"
-
+      puts "Posting photo to facebook with title: #{photo.title}"
+      
       #get photo as temp file from url
       f = self.get_photo_as_file_from_url(photo.url_o)
       Rails.logger.info "ClientManager#transfer_flickr_set_to_facebook_album - reference file exists?: #{File.exists?(f.path)}"

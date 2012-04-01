@@ -46,6 +46,8 @@ class FacebookClient
     has_photo = false
     
     fb_photos.each do |p|
+      break if has_photo
+      
       fb_photo_url = p.picture
       fb_photo_file = get_photo_as_file_from_url(fb_photo_url)
       
@@ -53,10 +55,16 @@ class FacebookClient
     	Rails.logger.info "reference photo(from flickr): #{f.path}  - exists? #{File.exists?(f.path)}"
      	Delayed::Worker.logger.info "compared to (from fb): #{fb_photo_file.path} - exists? #{File.exists?(fb_photo_file.path)}"
      	Delayed::Worker.logger.info "compared to (from fb): #{fb_photo_file.path} - exists? #{File.exists?(fb_photo_file.path)}"
+     	puts "compared to (from fb): #{fb_photo_file.path} - exists? #{File.exists?(fb_photo_file.path)}"
+     	puts "compared to (from fb): #{fb_photo_file.path} - exists? #{File.exists?(fb_photo_file.path)}"
+     	
       comparer = ImageCompare.new(f.path, fb_photo_file.path)
       has_photo = true if comparer.identical?(:tolerance => 0.02)
+      Delayed::Worker.logger.info "this pair identical?: #{has_photo.inspect}"
     end
-    Delayed::Worker.logger.info "found photos to be identical: #{has_photo.inspect}"
+
+    Delayed::Worker.logger.info "found duplicate in album?: #{has_photo.inspect}"
+    
     return has_photo
   end
 
