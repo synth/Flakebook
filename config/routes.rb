@@ -1,6 +1,7 @@
 Flakebook::Application.routes.draw do
   match "login" => "login#index", :as => "login"
   match "index" => "index#index", :as => "index"
+  match "test" => "test#index", :as => "test"
   match "import_photos" => "index#import_photos", :as => "import_photos", :only => :post
   match "confirm_import" => "index#confirm_import", :as => "confirm_import", :only => :post
   # The priority is based upon order of creation:
