@@ -41,11 +41,11 @@ class ClientManager
     Delayed::Worker.logger.info "Transferring photos to facebook from album: #{set.title}"
 
     #determine if album exists with the same name
-    unless album_id = facebook_client.album_exists?(set.title)
+    unless album = facebook_client.album_exists?(set.title)
       #create album
-      album_id = facebook_client.create_album(set.title, set.description)      
+      album = facebook_client.create_album(set.title, set.description)      
     end
-    fb_album = FacebookAlbum.new(album_id, facebook_client)
+    fb_album = FacebookAlbum.new(album, facebook_client)
     
     #get the photos
     photos = flickr_client.get_photos_for_set(set)

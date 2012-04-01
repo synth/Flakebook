@@ -22,15 +22,18 @@ class FacebookClient
     album_id = nil
     fb_albums = user.albums
     album = fb_albums.detect{|a| a.name == title}
-    album_id = album.id if album
-    return album_id
+    # album_id = album.id if album
+    # return album_id
+    return album
   end  
   
   def create_album(title, description)
     Rails.logger.debug "creating album: #{title} - #{description}"
     r = client.post("me/albums", nil, :name => title, :description => description)
     album_id = r["id"]
-    return album_id
+    album = Mogli::Album.find(album_id, client)
+    # return album_id
+    return album
   end
   
   def post_photo(album_id, file)
