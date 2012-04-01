@@ -45,6 +45,7 @@ class ClientManager
       #create album
       album_id = facebook_client.create_album(set.title, set.description)      
     end
+    fb_album = FacebookAlbum.new(album_id, facebook_client)
     
     #get the photos
     photos = flickr_client.get_photos_for_set(set)
@@ -59,7 +60,8 @@ class ClientManager
       
       #post photo
       if check_duplicates
-        facebook_client.post_photo(album_id, f) unless facebook_client.has_same_photo?(album_id, f)
+        # facebook_client.post_photo(album_id, f) unless facebook_client.has_same_photo?(album_id, f)
+        facebook_client.post_photo(album_id, f) unless facebook_client.has_same_photo?(fb_album.photos, f)
       else
         facebook_client.post_photo(album_id, f)
       end

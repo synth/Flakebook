@@ -38,10 +38,11 @@ class FacebookClient
   end
   
   #checks the album to see if there is a file with the same 
-  def has_same_photo?(album_id, f)
+  # def has_same_photo?(album_id, f)
+  def has_same_photo?(fb_photos, f)
 
-    album = Mogli::Album.find(album_id, client)
-    fb_photos = album.photos
+    # album = Mogli::Album.find(album_id, client)
+    # fb_photos = album.photos
     has_photo = false
     
     fb_photos.each do |p|

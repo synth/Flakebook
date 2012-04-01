@@ -29,7 +29,12 @@ class ImageCompare
   def difference
     img1 = Magick::ImageList.new(@img_path1)
     img2 = Magick::ImageList.new(@img_path2)
-    diff = img1.difference(img2.scale(img1.columns, img1.rows))
+    diff = nil
+    comptime = Benchmark.realtime{
+      diff = img1.difference(img2.scale(img1.columns, img1.rows))
+    }
+    Delayed::Worker.logger.debug "Img comparison took: #{comptime.to_s}"
+    
     #avg_diff = (diff[0]+diff[1]+diff[2])/3
     avg_diff = diff
     return avg_diff 
