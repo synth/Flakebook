@@ -50,14 +50,12 @@ class ClientManager
     photos = flickr_client.get_photos_for_set(set)
     
     #loop through all the photos
-    photos.each do |photo|
-      Rails.logger.debug "Posting photo to facebook with title: #{photo.title}"
-      Delayed::Worker.logger.debug "Posting photo to facebook with title: #{photo.title}"
-      puts "Posting photo to facebook with title: #{photo.title}"
+    photos.each_with_index do |photo, index|
+      # Rails.logger.debug "Posting photo to facebook with title: #{photo.title}"
+      Delayed::Worker.logger.debug "Attempt #{index}/#{photos.length} transfers from flickr to facebook with title: #{photo.title}"
       
       #get photo as temp file from url
       f = self.get_photo_as_file_from_url(photo.url_o)
-      Rails.logger.info "ClientManager#transfer_flickr_set_to_facebook_album - reference file exists?: #{File.exists?(f.path)}"
       
       #post photo
       if check_duplicates

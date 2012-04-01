@@ -39,7 +39,6 @@ class FacebookClient
   
   #checks the album to see if there is a file with the same 
   def has_same_photo?(album_id, f)
-    Rails.logger.info "FacebookClient#has_same_photo - reference file exists?: #{File.exists?(f.path)}"
 
     album = Mogli::Album.find(album_id, client)
     fb_photos = album.photos
@@ -51,19 +50,18 @@ class FacebookClient
       fb_photo_url = p.picture
       fb_photo_file = get_photo_as_file_from_url(fb_photo_url)
       
-    	Rails.logger.info "reference photo(from flickr): #{f.path}  - exists? #{File.exists?(f.path)}"
-    	Rails.logger.info "reference photo(from flickr): #{f.path}  - exists? #{File.exists?(f.path)}"
-     	Delayed::Worker.logger.info "compared to (from fb): #{fb_photo_file.path} - exists? #{File.exists?(fb_photo_file.path)}"
-     	Delayed::Worker.logger.info "compared to (from fb): #{fb_photo_file.path} - exists? #{File.exists?(fb_photo_file.path)}"
-     	puts "compared to (from fb): #{fb_photo_file.path} - exists? #{File.exists?(fb_photo_file.path)}"
-     	puts "compared to (from fb): #{fb_photo_file.path} - exists? #{File.exists?(fb_photo_file.path)}"
+      # Rails.logger.info "reference photo(from flickr): #{f.path}  - exists? #{File.exists?(f.path)}"
+      #       Rails.logger.info "compared to (from fb): #{fb_photo_file.path} - exists? #{File.exists?(fb_photo_file.path)}"      
+      # Delayed::Worker.info "reference photo(from flickr): #{f.path}  - exists? #{File.exists?(f.path)}"
+      # Delayed::Worker.logger.info "comparing incoming flickr photo to fb photos: #{fb_photo_file.path} - exists? #{File.exists?(fb_photo_file.path)}"
+      Delayed::Worker.logger.info "comparing incoming flickr photo to fb photos: #{photo.title} - #{fb_photo_url}"
      	
       comparer = ImageCompare.new(f.path, fb_photo_file.path)
       has_photo = true if comparer.identical?(:tolerance => 0.02)
-      Delayed::Worker.logger.info "this pair identical?: #{has_photo.inspect}"
+      Delayed::Worker.logger.info "identical to flickr photo?: #{has_photo.inspect}"
     end
 
-    Delayed::Worker.logger.info "found duplicate in album?: #{has_photo.inspect}"
+    Delayed::Worker.logger.info "***** Found duplicate in album?: #{has_photo.inspect}"
     
     return has_photo
   end
