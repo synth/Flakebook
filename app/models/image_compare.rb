@@ -5,8 +5,8 @@ class ImageCompare
   @@image_base = "/public/"
 
   def initialize(img1, img2)
-    @img1 = img1
-    @img2 = img2
+    @img_path1 = img1
+    @img_path2 = img2
   end
 
 # This method uses RMagick's difference method
