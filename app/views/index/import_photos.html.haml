@@ -11,7 +11,7 @@
           %img{:src => (cover_photo ? cover_photo.source: "") }
         = hidden_field_tag "photoset_ids[]", s.id
   %div
-    = check_box_tag "duplicate_check", "1", true
+    = check_box_tag "skip_duplicates", "1", true
     = label_tag "skip_duplicates", "Skip duplicates(takes longer)"
   %div
     %a{:href => index_url(:flickr_user => params[:flickr_user])} Go Back

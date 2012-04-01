@@ -49,7 +49,8 @@ class IndexController < ApplicationController
     photoset_id_string = params[:photoset_ids].join(",")
     flickr_username = @client_manager.flickr_client.username
     access_token = @client_manager.facebook_client.access_token
-    skip_duplicates = params.has_key?(:skip_duplicates) and params[:skip_duplicates] == 1 ? true : false
+    skip_duplicates = (params.has_key?(:skip_duplicates) and (params[:skip_duplicates] == "1")) ? true : false
+    Rails.logger.info "User has chosen #{skip_duplicates.inspect} for skip_duplicates"
     FacebookImport.delay.perform(access_token, flickr_username, photoset_id_string, :skip_duplicates => skip_duplicates)
     
     if true#placeholder

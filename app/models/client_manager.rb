@@ -38,6 +38,7 @@ class ClientManager
   def transfer_flickr_set_to_facebook_album(set, opts = {})
     check_duplicates = opts[:skip_duplicates]
     Rails.logger.info "Transferring photos to facebook from album: #{set.title}"
+    Delayed::Worker.logger.info "Transferring photos to facebook from album: #{set.title}"
 
     #determine if album exists with the same name
     unless album_id = facebook_client.album_exists?(set.title)
@@ -51,6 +52,7 @@ class ClientManager
     #loop through all the photos
     photos.each do |photo|
       Rails.logger.debug "Posting photo to facebook with title: #{photo.title}"
+      Delayed::Worker.logger.debug "Posting photo to facebook with title: #{photo.title}"
 
       #get photo as temp file from url
       f = self.get_photo_as_file_from_url(photo.url_o)
@@ -75,7 +77,8 @@ class ClientManager
 
   def get_photo_as_file_from_url(url)
     u = UrlUpload.new(url)
-    f = u.file
+    f = u
+#    f = u.file
     return f
   end  
 end
