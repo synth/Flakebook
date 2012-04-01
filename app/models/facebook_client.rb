@@ -47,14 +47,14 @@ class FacebookClient
     fb_photos.each do |p|
       break if has_photo
       
-      fb_photo_url = p.picture
+      fb_photo_url = p.source
       fb_photo_file = get_photo_as_file_from_url(fb_photo_url)
       
       # Rails.logger.info "reference photo(from flickr): #{f.path}  - exists? #{File.exists?(f.path)}"
       #       Rails.logger.info "compared to (from fb): #{fb_photo_file.path} - exists? #{File.exists?(fb_photo_file.path)}"      
       # Delayed::Worker.info "reference photo(from flickr): #{f.path}  - exists? #{File.exists?(f.path)}"
       # Delayed::Worker.logger.info "comparing incoming flickr photo to fb photos: #{fb_photo_file.path} - exists? #{File.exists?(fb_photo_file.path)}"
-      Delayed::Worker.logger.info "comparing incoming flickr photo to fb photos: #{photo.title} - #{fb_photo_url}"
+      Delayed::Worker.logger.info "comparing incoming flickr photo to fb photos: #{p.name} - #{fb_photo_url}"
      	
       comparer = ImageCompare.new(f.path, fb_photo_file.path)
       has_photo = true if comparer.identical?(:tolerance => 0.02)
