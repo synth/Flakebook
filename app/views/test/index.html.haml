@@ -1,0 +1,23 @@
+%h4 reference img
+%img{:src => @reference_img}
+%hr{:style => "border: 1px solid red"}
+.set{:style => "margin-top: 10px"}
+- @imgs.each do |img|
+  %div{:style => "float:left"}
+    %div{:style => ""}
+      - comparer = ImageCompare.new(@reference_img, img)
+      - diff = comparer.difference
+      - if diff < 0.01
+        - style = "font-size:12px;color:green"
+        - text = "TRUE(#{diff})"
+      - else
+        - style = "font-size:12px;color:red"
+        - text = "FALSE(#{diff})"
+      
+      Matches reference?: 
+      %br
+      %span{:style => style} #{text}
+    %div{:style => "width: 150px;"}
+      %img{:src => img, :style => "border: 1px solid red;margin: 5px"}
+    %div{:style => "font-size: 9px"}
+      = img

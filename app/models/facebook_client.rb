@@ -39,15 +39,19 @@ class FacebookClient
   
   #checks the album to see if there is a file with the same 
   def has_same_photo?(album_id, f)
-    # flickr_md5 = f
+
     album = Mogli::Album.find(album_id, client)
     fb_photos = album.photos
     has_photo = false
+    flickr_photo_digest = Digest::MD5.hexdigest(f.read)
+    
+    fb_photo_digest_set = []
     fb_photos.each do |p|
       fb_photo_url = p.picture
       fb_photo_file = get_photo_as_file_from_url(fb_photo_url)
+      
       fb_photo_digest = Digest::MD5.hexdigest(fb_photo_file.read)
-      flickr_photo_digest = Digest::MD5.hexdigest(f.read)
+      fb_photo_digest_set << fb_photo_digest
       has_photo = true if fb_photo_digest == flickr_photo_digest
     end
     debugger
