@@ -43,18 +43,15 @@ class FacebookClient
     album = Mogli::Album.find(album_id, client)
     fb_photos = album.photos
     has_photo = false
-    flickr_photo_digest = Digest::MD5.hexdigest(f.read)
     
-    fb_photo_digest_set = []
     fb_photos.each do |p|
       fb_photo_url = p.picture
       fb_photo_file = get_photo_as_file_from_url(fb_photo_url)
       
-      fb_photo_digest = Digest::MD5.hexdigest(fb_photo_file.read)
-      fb_photo_digest_set << fb_photo_digest
-      has_photo = true if fb_photo_digest == flickr_photo_digest
+      debugger
+      comparer = ImageCompare.new(f.path, fb_photo_file.path)
+      has_photo = true if comparer.identical?(:tolerance => 0.02)
     end
-    debugger
     return true
   end
 

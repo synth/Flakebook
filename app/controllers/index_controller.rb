@@ -49,7 +49,8 @@ class IndexController < ApplicationController
     photoset_id_string = params[:photoset_ids].join(",")
     flickr_username = @client_manager.flickr_client.username
     access_token = @client_manager.facebook_client.access_token
-    FacebookImport.delay.perform(access_token, flickr_username, photoset_id_string)
+    skip_duplicates = params.has_key?(:skip_duplicates) and params[:skip_duplicates] == 1 ? true : false
+    FacebookImport.delay.perform(access_token, flickr_username, photoset_id_string, :skip_duplicates => skip_duplicates)
     
     if true#placeholder
       flash[:notice] = "Albums have been scheduled for import.  This may take some time.  Please go to your facebook albums page and wait for the magic :)"

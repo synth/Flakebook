@@ -35,7 +35,8 @@ class ClientManager
   
   #This method is the meat/workhorse, whatever
   #it actually does the posting to facebook
-  def transfer_flickr_set_to_facebook_album(set)
+  def transfer_flickr_set_to_facebook_album(set, opts = {})
+    check_duplicates = opts[:skip_duplicates]
     Rails.logger.info "Transferring photos to facebook from album: #{set.title}"
 
     #determine if album exists with the same name
@@ -55,7 +56,11 @@ class ClientManager
       f = self.get_photo_as_file_from_url(photo.url_o)
       
       #post photo
-      facebook_client.post_photo(album_id, f) unless facebook_client.has_same_photo?(album_id, f)
+      if check_duplicates
+        facebook_client.post_photo(album_id, f) unless facebook_client.has_same_photo?(album_id, f)
+      else
+        facebook_client.post_photo(album_id, f)
+      end
     end
   end
   
