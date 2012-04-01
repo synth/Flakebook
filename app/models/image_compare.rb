@@ -35,7 +35,7 @@ class ImageCompare
     return avg_diff 
   end
   
-  def identical_with_tolerance?(opts = {})
+  def identical?(opts = {})
     return difference[1] < (opts[:tolerance] || 0.02)
   end
 end
