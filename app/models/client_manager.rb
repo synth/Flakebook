@@ -61,9 +61,9 @@ class ClientManager
       #post photo
       if check_duplicates
         # facebook_client.post_photo(album_id, f) unless facebook_client.has_same_photo?(album_id, f)
-        facebook_client.post_photo(fb_album.id, f) unless facebook_client.has_same_photo?(fb_album.photos, f)
+        facebook_client.post_photo(fb_album.id, f.file) unless facebook_client.has_same_photo?(fb_album.photos, f)
       else
-        facebook_client.post_photo(fb_album.id, f)
+        facebook_client.post_photo(fb_album.id, f.file)
       end
     end
   end
