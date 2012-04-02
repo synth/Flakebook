@@ -65,7 +65,7 @@ class FacebookClient
       Delayed::Worker.logger.info "identical to flickr photo?: #{has_photo.inspect}"
     end
 
-    Delayed::Worker.logger.info "***** Found duplicate in album?: #{has_photo.inspect}"
+    Delayed::Worker.logger.info "  ********** Found duplicate in album?: #{has_photo.inspect}"
     
     return has_photo
   end
