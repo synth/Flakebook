@@ -66,6 +66,7 @@ class FacebookClient
     end
 
     Delayed::Worker.logger.info "  ********** Found duplicate in album?: #{has_photo.inspect}"
+    Delayed::Worker.logger.info "                                                            "
     
     return has_photo
   end
