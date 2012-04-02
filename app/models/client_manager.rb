@@ -37,7 +37,6 @@ class ClientManager
   #it actually does the posting to facebook
   def transfer_flickr_set_to_facebook_album(set, opts = {})
     check_duplicates = opts[:skip_duplicates]
-    Rails.logger.info "Transferring photos to facebook from album: #{set.title}"
     Delayed::Worker.logger.info "Transferring photos to facebook from album: #{set.title}"
 
     #determine if album exists with the same name
@@ -54,6 +53,7 @@ class ClientManager
     photos.each_with_index do |photo, index|
       # Rails.logger.debug "Posting photo to facebook with title: #{photo.title}"
       Delayed::Worker.logger.debug "Attempt #{index}/#{photos.length} transfers from flickr to facebook with title: #{photo.title}"
+      Delayed::Worker.logger.debug " -----> flickr photo url: #{photo.url_o}"
       
       #get photo as temp file from url
       f = self.get_photo_as_file_from_url(photo.url_o)
